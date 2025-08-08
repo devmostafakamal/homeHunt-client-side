@@ -52,3 +52,11 @@ HomeHunt is a full-stack real estate platform that supports three user roles: **
 1. Clone the repository  
 ```bash
 https://github.com/devmostafakamal/homeHunt-client-side.git
+2. Install dependencies  
+   `npm install`  
+3. Start the development server  
+   `npm run dev`
+
+## Additional Links
+- API Documentation: [Link]
+- Design Files: [Link]
