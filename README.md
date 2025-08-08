@@ -7,7 +7,7 @@ HomeHunt is a full-stack real estate platform that supports three user roles: **
 - Admins verify and manage property listings to ensure quality and authenticity.
 
 ## Live Project Link
-[https://your-live-homehunt-link.com](https://homehunt-c60d6.web.app/)
+(https://homehunt-c60d6.web.app/)
 
 ---
 
@@ -51,4 +51,4 @@ HomeHunt is a full-stack real estate platform that supports three user roles: **
 
 1. Clone the repository  
 ```bash
-git clone https://github.com/yourusername/homehunt.git
+https://github.com/devmostafakamal/homeHunt-client-side.git
