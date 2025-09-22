@@ -9,10 +9,12 @@ function Home() {
   return (
     <div>
       <Banner></Banner>
-      <Advertisement></Advertisement>
-      <LatestReviews></LatestReviews>
-      <FeaturedAgents></FeaturedAgents>
-      <TipsForBuyersSellers></TipsForBuyersSellers>
+      <div className="max-w-[1402px] mx-auto">
+        <Advertisement></Advertisement>
+        <LatestReviews></LatestReviews>
+        <FeaturedAgents></FeaturedAgents>
+        <TipsForBuyersSellers></TipsForBuyersSellers>
+      </div>
     </div>
   );
 }

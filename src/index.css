@@ -1,6 +1,25 @@
 @import "tailwindcss";
 @plugin "daisyui";
 #root {
-  max-width: 1580px;
+  max-width: 1920px;
   margin: auto;
+}
+* {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.roboto {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+:root {
+  --nav-font-size: 1.25rem;
+  --primary-color: #93c5fd;
+  --header-font-size: 20px;
 }

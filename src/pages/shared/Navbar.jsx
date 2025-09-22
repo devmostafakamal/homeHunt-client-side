@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
 
-// Fake auth hook — replace with your own
-
 const Navbar = () => {
-  const { user, logOut } = useAuth(); // user: { displayName, photoURL, email }
+  const { user, logOut } = useAuth();
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = async () => {
     try {
@@ -16,29 +16,56 @@ const Navbar = () => {
     }
   };
 
+  // বাইরে ক্লিক করলে বন্ধ হবে
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const navItems = (
     <>
       <li>
-        <NavLink to="/" className="font-semibold">
+        <NavLink
+          to="/"
+          className="font-semibold [font-size:var(--nav-font-size)]"
+        >
           Home
         </NavLink>
       </li>
-
-      <>
-        <li>
-          <NavLink to="/allProperties">All Properties</NavLink>
-        </li>
-        <li>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-        </li>
-      </>
+      <li>
+        <NavLink
+          to="/allProperties"
+          className="[font-size:var(--nav-font-size)] "
+        >
+          All Properties
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/dashboard" className="[font-size:var(--nav-font-size)]">
+          Dashboard
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/rentProperties"
+          className="[font-size:var(--nav-font-size)] "
+        >
+          Rent Properties
+        </NavLink>
+      </li>
     </>
   );
 
   return (
-    <div className="navbar sticky top-0 z-50 bg-blue-300 shadow-md">
+    <div className="navbar sticky top-0 z-50 [background-color:var(--primary-color)] shadow-md px-8">
       <div className="navbar-start">
-        <div className="dropdown">
+        {/* Mobile dropdown */}
+        <div className="dropdown group">
           <button tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
               className="h-5 w-5"
@@ -55,9 +82,13 @@ const Navbar = () => {
               />
             </svg>
           </button>
+
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50"
+            className="menu menu-compact menu-vertical dropdown-content mt-12 left-0 shadow bg-base-100 rounded-box w-52 z-50 
+                   transition-all duration-300 ease-in-out origin-top
+                   scale-95 opacity-0 invisible
+                   group-focus-within:scale-100 group-focus-within:opacity-100 group-focus-within:visible"
           >
             {navItems}
           </ul>
@@ -74,10 +105,12 @@ const Navbar = () => {
         </Link>
       </div>
 
+      {/* Center Nav */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
 
+      {/* Right Side */}
       <div className="navbar-end">
         {user ? (
           <div className="flex items-center gap-2">
@@ -87,13 +120,18 @@ const Navbar = () => {
               className="w-8 h-8 rounded-full border"
               title={user.displayName}
             />
-            <button onClick={handleLogout} className="btn btn-outline btn-sm">
+            <button
+              onClick={handleLogout}
+              className="btn btn-outline btn-sm [font-size:var(--nav-font-size)]"
+            >
               Logout
             </button>
           </div>
         ) : (
           <Link to="/login">
-            <button className="btn btn-primary btn-sm">Login</button>
+            <button className="btn btn-primary btn-sm [font-size:var(--nav-font-size)]">
+              Login
+            </button>
           </Link>
         )}
       </div>

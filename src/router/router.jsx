@@ -26,6 +26,7 @@ import MyReviews from "../pages/Dashboard/User/MyReviews";
 import ManageReviews from "../pages/Dashboard/Admin/ManageReviews ";
 import Payment from "../pages/Payments/Payment";
 import AdvertiseProperty from "../pages/Dashboard/Admin/AdvertiseProperty";
+import RentProperties from "../pages/RentProperties/RentProperties";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
             <PropertyDetails></PropertyDetails>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "rentProperties",
+        Component: RentProperties,
       },
       {
         path: "login",

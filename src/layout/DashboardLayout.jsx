@@ -3,16 +3,7 @@ import { NavLink, Outlet } from "react-router";
 // import ProFastLogo from "../pages/shared/ProFastLogo/ProFastLogo";
 import {
   FaHome,
-  FaBoxOpen,
-  FaMoneyCheckAlt,
-  FaShippingFast,
-  FaUserEdit,
-  FaClock,
-  FaMotorcycle,
   FaUserShield,
-  FaTasks,
-  FaCheckCircle,
-  FaWallet,
   FaUserCircle,
   FaHeart,
   FaShoppingBag,
