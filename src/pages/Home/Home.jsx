@@ -8,7 +8,7 @@ import TipsForBuyersSellers from "./TipsForBuyersSellers";
 function Home() {
   return (
     <div>
-      <Banner></Banner>
+      {/* <Banner></Banner> */}
       <div className="max-w-[1402px] mx-auto">
         <Advertisement></Advertisement>
         <LatestReviews></LatestReviews>

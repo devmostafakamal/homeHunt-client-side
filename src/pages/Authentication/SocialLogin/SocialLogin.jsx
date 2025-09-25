@@ -39,10 +39,14 @@ function SocialLogin() {
 
   return (
     <>
-      <p className="text-center mt-4">OR</p>
+      <div className="flex items-center mb-4">
+        <div className="flex-1 h-px bg-gray-400"></div>
+        <p className="mx-4 text-gray-600">OR</p>
+        <div className="flex-1 h-px bg-gray-400"></div>
+      </div>
       <button
-        className="btn bg-white text-black border-[#e5e5e5]"
         onClick={handleGoogleSignIn}
+        className="w-full flex items-center justify-center gap-2  py-2 px-4 border rounded-lg bg-white text-black hover:bg-gray-100 transition-colors"
       >
         <svg
           aria-label="Google logo"

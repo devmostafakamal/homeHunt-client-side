@@ -1,12 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router"; // Corrected import for NavLink
 import useAuth from "../../hooks/useAuth";
+import { AiOutlineHome } from "react-icons/ai";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef(null);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
+  // Handle logout
   const handleLogout = async () => {
     try {
       await logOut();
@@ -16,7 +21,7 @@ const Navbar = () => {
     }
   };
 
-  // বাইরে ক্লিক করলে বন্ধ হবে
+  // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -27,12 +32,21 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Detect scroll to trigger animation
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50); // Trigger animation after scrolling 50px
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const navItems = (
     <>
       <li>
         <NavLink
           to="/"
-          className="font-semibold [font-size:var(--nav-font-size)]"
+          className="relative hover:bg-transparent font-semibold text-xl after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
         >
           Home
         </NavLink>
@@ -40,20 +54,23 @@ const Navbar = () => {
       <li>
         <NavLink
           to="/allProperties"
-          className="[font-size:var(--nav-font-size)] "
+          className="relative hover:bg-transparent text-xl after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
         >
           All Properties
         </NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard" className="[font-size:var(--nav-font-size)]">
+        <NavLink
+          to="/dashboard"
+          className="relative hover:bg-transparent text-xl after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+        >
           Dashboard
         </NavLink>
       </li>
       <li>
         <NavLink
           to="/rentProperties"
-          className="[font-size:var(--nav-font-size)] "
+          className="relative hover:bg-transparent text-xl after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
         >
           Rent Properties
         </NavLink>
@@ -62,78 +79,103 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar sticky top-0 z-50 [background-color:var(--primary-color)] shadow-md px-8">
-      <div className="navbar-start">
-        {/* Mobile dropdown */}
-        <div className="dropdown group">
-          <button tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              className="h-5 w-5"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </button>
+    <div
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-400 ease-in-out ${
+        isHome
+          ? isScrolled
+            ? "bg-white py-2 shadow-lg text-black"
+            : "bg-transparent py-4 text-white"
+          : "bg-white py-2 shadow-md text-black"
+      }`}
+    >
+      <div className="navbar max-w-[1402px] mx-auto px-8 ">
+        <div className="navbar-start">
+          {/* Mobile dropdown */}
+          <div className="dropdown group relative lg:hidden">
+            {/* Hamburger button */}
+            <button onClick={() => setOpen(!open)} className=" btn btn-ghost ">
+              <svg
+                className="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
 
-          <ul
-            tabIndex={0}
-            className="menu menu-compact menu-vertical dropdown-content mt-12 left-0 shadow bg-base-100 rounded-box w-52 z-50 
-                   transition-all duration-300 ease-in-out origin-top
-                   scale-95 opacity-0 invisible
-                   group-focus-within:scale-100 group-focus-within:opacity-100 group-focus-within:visible"
-          >
-            {navItems}
-          </ul>
+            {/* Sidebar */}
+            <div
+              className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-50 
+              transform transition-transform duration-300 
+              ${open ? "translate-x-0" : "-translate-x-full"}`}
+            >
+              {/* Header */}
+              <div className="p-4 flex justify-between items-center border-b">
+                <h2 className="text-xl font-bold">Menu</h2>
+                <button onClick={() => setOpen(false)} className="text-2xl">
+                  ✕
+                </button>
+              </div>
+
+              {/* Sidebar menu items */}
+              <ul className="menu p-4 space-y-2">{navItems}</ul>
+            </div>
+
+            {/* Overlay */}
+            {open && (
+              <div
+                className="fixed inset-0  bg-opacity-50 z-40"
+                onClick={() => setOpen(false)}
+              ></div>
+            )}
+          </div>
+
+          {/* Logo + Name */}
+          <Link to="/" className="lg:flex items-center gap-1 hidden ">
+            <div className="bg-orange-500 p-2 rounded-xl">
+              <AiOutlineHome className="h-6 w-6 text-white" />
+            </div>
+            <h2 className="font-bold text-2xl">homez</h2>
+          </Link>
         </div>
 
-        {/* Logo + Name */}
-        <Link to="/" className="btn btn-ghost text-xl font-bold">
-          <img
-            src="/assets/Editable-Real-Estate-Logo-Design.png"
-            alt="Logo"
-            className="h-8 w-8 mr-2"
-          />
-          RealNest
-        </Link>
-      </div>
+        {/* Center Nav */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 space-x-4">{navItems}</ul>
+        </div>
 
-      {/* Center Nav */}
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navItems}</ul>
-      </div>
-
-      {/* Right Side */}
-      <div className="navbar-end">
-        {user ? (
-          <div className="flex items-center gap-2">
-            <img
-              src={user.photoURL}
-              alt="User"
-              className="w-8 h-8 rounded-full border"
-              title={user.displayName}
-            />
-            <button
-              onClick={handleLogout}
-              className="btn btn-outline btn-sm [font-size:var(--nav-font-size)]"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <Link to="/login">
-            <button className="btn btn-primary btn-sm [font-size:var(--nav-font-size)]">
-              Login
-            </button>
-          </Link>
-        )}
+        {/* Right Side */}
+        <div className="navbar-end">
+          {user ? (
+            <div className="flex items-center gap-2">
+              <img
+                src={user.photoURL}
+                alt="User"
+                className="w-8 h-8 rounded-full border"
+                title={user.displayName}
+              />
+              <button
+                onClick={handleLogout}
+                className="btn btn-outline btn-sm text-base"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link to="/login">
+              <button className="px-6 py-2 rounded-md hover:bg-blue-500 text-xl border">
+                Login
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );
