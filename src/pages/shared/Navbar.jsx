@@ -32,13 +32,26 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Detect scroll to trigger animation
+  // Detect scroll to trigger animation (only on large screens)
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // Trigger animation after scrolling 50px
+      if (window.innerWidth >= 1024) {
+        // lg breakpoint
+        setIsScrolled(window.scrollY > 50);
+      } else {
+        setIsScrolled(false); // no scroll effect on small screens
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll); // update on resize
+
+    handleScroll(); // run once on mount
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   const navItems = (
@@ -117,7 +130,7 @@ const Navbar = () => {
               ${open ? "translate-x-0" : "-translate-x-full"}`}
             >
               {/* Header */}
-              <div className="p-4 flex justify-between items-center border-b">
+              <div className="p-4 flex justify-between items-center border-b text-black">
                 <h2 className="text-xl font-bold">Menu</h2>
                 <button onClick={() => setOpen(false)} className="text-2xl">
                   ✕
@@ -125,7 +138,7 @@ const Navbar = () => {
               </div>
 
               {/* Sidebar menu items */}
-              <ul className="menu p-4 space-y-2">{navItems}</ul>
+              <ul className="menu p-4 space-y-2 text-black">{navItems}</ul>
             </div>
 
             {/* Overlay */}
