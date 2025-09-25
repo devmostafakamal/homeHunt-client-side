@@ -29,7 +29,7 @@ const FeaturedAgents = () => {
       data-aos-duration="1500" // duration in milliseconds
       data-aos-delay="300"
     >
-      <section className="my-10 mt-16">
+      <section className="mb-10 mt-16 px-4">
         <h2 className="text-2xl font-bold text-center mb-6">
           🌟 Featured Agents
         </h2>

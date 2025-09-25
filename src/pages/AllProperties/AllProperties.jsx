@@ -34,32 +34,28 @@ const AllProperties = () => {
     return <span className="loading loading-spinner loading-lg"></span>;
 
   return (
-    <>
-      <div className="mt-4 flex items-center justify-between">
-        <div>
-          <input
-            type="text"
-            placeholder="Search by location"
-            className="input input-bordered w-full max-w-xs mb-4"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
-          />
-        </div>
+    <div className="mt-30 max-w-[1402px] mx-auto">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 px-5">
+        <input
+          type="text"
+          placeholder="Search by location"
+          className="input input-bordered w-full max-w-xs"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
+        />
 
-        <div className="text-right">
-          <select
-            className="select select-bordered w-[120px] max-w-xs mb-4"
-            onChange={(e) => setSortOrder(e.target.value)}
-            value={sortOrder}
-          >
-            <option value="">Sort by Price</option>
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
-        </div>
+        <select
+          className="select select-bordered w-[160px]"
+          onChange={(e) => setSortOrder(e.target.value)}
+          value={sortOrder}
+        >
+          <option value="">Sort by Price</option>
+          <option value="asc">Low to High</option>
+          <option value="desc">High to Low</option>
+        </select>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 p-5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 p-5  ">
         {filteredAndSortedProperties.map((p) => (
           <div key={p._id} className="card bg-base-100 shadow-xl p-4 space-y-3">
             <img
@@ -103,7 +99,7 @@ const AllProperties = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

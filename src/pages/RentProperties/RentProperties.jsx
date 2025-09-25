@@ -59,7 +59,7 @@ const RentProperties = () => {
   ];
 
   return (
-    <div className="max-w-[1170px] mx-auto p-6">
+    <div className="max-w-[1402px] mx-auto p-6 mt-30">
       <h1 className="text-3xl font-semibold mb-6">Properties For Rent</h1>
 
       {/* Filter Section */}

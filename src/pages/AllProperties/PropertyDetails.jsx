@@ -92,7 +92,7 @@ const PropertyDetails = () => {
   if (isLoading) return <div className="text-center p-10">Loading...</div>;
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="max-w-5xl mx-auto p-6 mt-30">
       <img
         src={property.image}
         className="w-full h-96 object-cover rounded-lg"

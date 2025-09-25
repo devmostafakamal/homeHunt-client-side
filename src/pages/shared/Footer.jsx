@@ -8,6 +8,7 @@ import {
   FaYelp,
 } from "react-icons/fa";
 import { SiGoogle } from "react-icons/si";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -15,19 +16,11 @@ const Footer = () => {
       {/* Top section */}
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Discover */}
-        <div>
-          <h3 className="mb-6 font-semibold text-lg">Discover</h3>
-          <ul className="space-y-3 text-sm">
-            {["Miami", "Los Angeles", "Chicago", "New York"].map((city) => (
-              <li
-                key={city}
-                className="flex items-center space-x-2 cursor-pointer hover:text-gray-300"
-              >
-                <span className="text-xs">&gt;</span>
-                <span className="font-semibold">{city}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="flex items-start gap-2 flex-col">
+          <Link to="/">Home</Link>
+          <Link to="/allProperties"> All Properties</Link>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/rentProperties">Rent Properties</Link>
         </div>
 
         {/* Contact Us */}
@@ -103,7 +96,7 @@ const Footer = () => {
         {/* Newsletter */}
         <div>
           <h3 className="mb-6 font-semibold text-lg">Newsletter</h3>
-          <form className="flex items-center space-x-3 mb-4">
+          <form className="flex flex-wrap gap-2 items-center  mb-4">
             <input
               type="email"
               placeholder="Enter your email"
@@ -129,14 +122,41 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
           {/* Social Icons */}
           <div className="flex space-x-6 text-sm text-white">
-            <FaFacebookF className="cursor-pointer hover:text-gray-300" />
-            <FaTwitter className="cursor-pointer hover:text-gray-300" />
-            <FaInstagram className="cursor-pointer hover:text-gray-300" />
-            <FaLinkedinIn className="cursor-pointer hover:text-gray-300" />
-            <SiGoogle className="cursor-pointer hover:text-gray-300" />
-            <FaYoutube className="cursor-pointer hover:text-gray-300" />
-            <FaPinterestP className="cursor-pointer hover:text-gray-300" />
-            <FaYelp className="cursor-pointer hover:text-gray-300" />
+            <a
+              href="https://facebook.com/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaFacebookF className="cursor-pointer hover:text-gray-300" />
+            </a>
+            <a
+              href="https://twitter.com/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTwitter className="cursor-pointer hover:text-gray-300" />
+            </a>
+            <a
+              href="https://instagram.com/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaInstagram className="cursor-pointer hover:text-gray-300" />
+            </a>
+            <a
+              href="https://linkedin.com/in/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaLinkedinIn className="cursor-pointer hover:text-gray-300" />
+            </a>
+            <a
+              href="mailto:yourmail@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SiGoogle className="cursor-pointer hover:text-gray-300" />
+            </a>
           </div>
 
           {/* Logo */}

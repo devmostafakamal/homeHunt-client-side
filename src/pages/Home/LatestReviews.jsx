@@ -20,7 +20,7 @@ const LatestReviews = () => {
       data-aos-duration="1500" // duration in milliseconds
       data-aos-delay="300"
     >
-      <div className="my-10 mt-20">
+      <div className="my-10 mt-20 px-4">
         <h2 className="text-2xl font-bold text-center mb-6">
           📝 Latest User Reviews
         </h2>

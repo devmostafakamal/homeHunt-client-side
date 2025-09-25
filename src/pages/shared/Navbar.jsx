@@ -22,15 +22,15 @@ const Navbar = () => {
   };
 
   // Handle click outside to close dropdown
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+  //       setOpen(false);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
 
   // Detect scroll to trigger animation (only on large screens)
   useEffect(() => {
@@ -93,12 +93,14 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-400 ease-in-out ${
-        isHome
+      className={`fixed top-0 left-0 w-full z-50 transform transition-all duration-500 ease-out ${
+        window.innerWidth < 1024
+          ? "bg-white py-2 shadow-md text-black"
+          : isHome
           ? isScrolled
-            ? "bg-white py-2 shadow-lg text-black"
-            : "bg-transparent py-4 text-white"
-          : "bg-white py-2 shadow-md text-black"
+            ? "bg-white py-2 shadow-lg text-black translate-y-0"
+            : "bg-transparent py-4 text-white -translate-y-2"
+          : "bg-white py-2 shadow-md text-black translate-y-0"
       }`}
     >
       <div className="navbar max-w-[1402px] mx-auto px-8 ">
